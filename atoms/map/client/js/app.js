@@ -53,6 +53,7 @@ provincesMap
 .append('path')	
 .attr('d', path)
 .attr('stroke', '#FFFFFF')
+.attr('stroke-width', '1.5px')
 .attr('fill', 'none')
 
 
@@ -138,15 +139,13 @@ const manageMove = (event) => {
 
 
     let tWidth = d3.select('.gv-tooltip-container').node().getBoundingClientRect().width;
-    let tHeight = d3.select('.gv-tooltip-container').node().getBoundingClientRect().height;
 
     let posX = left - tWidth /2;
-    let posY = top + tHeight;
+    let posY = top + 10;
 
     if(posX + tWidth > width) posX = width - tWidth;
     if(posX < 0) posX = 0;
-    if(posY + tHeight > height) posY = top;
-    if(posY < 0) posY = 0;
+
 
     d3.select('.gv-tooltip-container').style('left',  posX + 'px')
     d3.select('.gv-tooltip-container').style('top', posY + 'px')
