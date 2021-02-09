@@ -106,7 +106,7 @@ const manageOver = (name, value) => {
 		.html(winners[value].party)
 
 		d3.select('.gv-winner-counter-value')
-		.html(winners[value].votes + ' votes ('+ winners[value].percentage +'%)')
+		.html(winners[value].votes + ' votes ('+ +winners[value].percentage.toFixed(1) +'%)')
 
 	}
 	else
@@ -183,5 +183,3 @@ const manageMove = (event) => {
 
 
 if(window.resize)window.resize()
-
-	
