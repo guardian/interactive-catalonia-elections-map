@@ -20,6 +20,13 @@ let path = d3.geoPath()
 
 projection.fitSize([width, height], topojson.feature(map, map.objects.catalonia_municipalities_2062));
 
+let capitals = [
+{name:'Barcelona', coordinates:[2.1733676,41.4038413]},
+{name:'Girona', coordinates:[2.8192063,41.978854]},
+{name:'Lleida', coordinates:[0.6189664,41.6175089]},
+{name:'Tarragona', coordinates:[1.2422923,41.118617]}
+]
+
 let svg = d3.select('.gv-catalonia-map-wrapper').append('svg')
 .attr('width', width)
 .attr('height', height)
@@ -28,6 +35,7 @@ let svg = d3.select('.gv-catalonia-map-wrapper').append('svg')
 let municipalitiesMap = svg.append('g')
 let provincesMap = svg.append('g')
 let municipalitieStroke = svg.append('g')
+let capitalsMap = svg.append('g')
 
 municipalitiesMap
 .selectAll('path')
@@ -113,6 +121,26 @@ const manageOver = (name, value) => {
 	
 }
 
+
+capitalsMap
+.selectAll('circle')
+.data(capitals)
+.enter()
+.append('circle')
+.attr('class', 'gv-city-circle')
+.attr('r', 2.5)
+.attr('cx', d => projection(d.coordinates)[0])
+.attr('cy', d => projection(d.coordinates)[1])
+
+capitalsMap
+.selectAll('text')
+.data(capitals)
+.enter()
+.append('text')
+.attr('class', 'gv-city-text')
+.attr('transform', d => `translate(${projection(d.coordinates)[0] + 5},${projection(d.coordinates)[1]})`)
+.text(d => d.name)
+
 const highlight = (value) => {
 
 	d3.select('.gv-tooltip-container')
@@ -141,7 +169,7 @@ const manageMove = (event) => {
     let tWidth = d3.select('.gv-tooltip-container').node().getBoundingClientRect().width;
 
     let posX = left - tWidth /2;
-    let posY = top + 10;
+    let posY = top + 20;
 
     if(posX + tWidth > width) posX = width - tWidth;
     if(posX < 0) posX = 0;

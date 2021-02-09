@@ -1,7 +1,7 @@
 @import "fonts";
 @import "mq";
 @import "palette";
-// @import "enhancer";
+@import "enhancer";
 
 .interactive-atom {
     margin: 0;
@@ -95,4 +95,16 @@ Vox		2	98			#3db540
 				white-space: nowrap;
 			    overflow: hidden;
 			    text-overflow: ellipsis;
+}
+
+.gv-city-circle{
+	fill:#333;
+	pointer-events: none;
+}
+
+.gv-city-text{
+
+	@include fs-textSans(2);
+	pointer-events: none;
+	
 }
