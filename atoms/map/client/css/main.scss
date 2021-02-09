@@ -1,0 +1,92 @@
+@import "fonts";
+@import "mq";
+@import "palette";
+// @import "enhancer";
+
+.interactive-atom {
+    margin: 0;
+    padding: 0;
+}
+
+
+.p0006{fill:#c70000;}
+.p0010{fill:#ffbb50;}
+.p0086{fill:#00B2FF;}
+.p0301{fill:#e05e00;}
+.p1098{fill:#ffe500;}
+.p1099{fill:#7d0068;}
+.p1097{fill:#506991;}
+.p1083{fill:#69d1ca;}
+.p0693{fill:#3db540;}
+
+.p0350{fill:#B3B3B4;}
+.p0546{fill:#B3B3B4;}
+.p0643{fill:#B3B3B4;}
+.p1034{fill:#B3B3B4;}
+.p1035{fill:#B3B3B4;}
+.p1095{fill:#B3B3B4;}
+.p1100{fill:#B3B3B4;}
+.p1101{fill:#B3B3B4;}
+.p1102{fill:#B3B3B4;}
+.p1103{fill:#B3B3B4;}
+.p1104{fill:#B3B3B4;}
+.p1105{fill:#B3B3B4;}
+.p1106{fill:#B3B3B4;}
+.p1108{fill:#B3B3B4;}
+/* 
+ERC	Catalan Republican Left	20	0		1	#ffbb50	
+JxCat	Together for Catalonia	10	20		1	#69d1ca	
+PDeCat	Catalan European Democratic party	10	30		1	#506991	
+CUP-G	Popular Unity Candidacy	10	40		1	#ffe500	
+PSC-PSOE	Socialists	20	50			#c70000	
+ECP	In Common We Can	15	70			#7d0068	
+PP	People's party	3	85			#00B2FF	
+Cs	Citizens	10	88			#e05e00	
+Vox		2	98			#3db540	
+							 */
+
+
+
+.gv-tooltip-container{
+		pointer-events: none;
+		min-width:200px;
+		height: max-content;
+		padding:8px;
+		background: rgba(255, 255, 255, 0.9);
+		border: 1px solid #333;
+		color: #333333;
+		border-top: 1px solid #333;
+		position: absolute;
+		z-index: 100000;
+		line-height: 18.2px;
+
+		opacity: 0;
+
+		&.over{
+			opacity: 1;
+		}
+}
+
+.gv-tooltip-header-container{
+	@include fs-header(1);
+	margin-bottom: 6px;
+}
+
+.gv-winner-counter{
+	display: flex;
+	flex-direction: row;
+	flex: 1;
+	justify-content: space-between;
+	@include fs-textSans(2);
+}
+
+.gv-winner-counter-header,.gv-winner-counter-value{
+	@include fs-textSans(2);
+}
+
+.gv-winner-counter-header{
+				width: 60px;
+				white-space: nowrap;
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+}
