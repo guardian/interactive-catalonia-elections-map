@@ -182,3 +182,6 @@ const manageMove = (event) => {
 
 
 
+if(window.resize)window.resize()
+
+	
