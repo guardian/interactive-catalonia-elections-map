@@ -52,6 +52,9 @@ Vox		2	98			#3db540
 							 */
 
 
+.independence{fill:#F5BE2C;}
+
+
 
 .gv-tooltip-container{
 		pointer-events: none;
@@ -91,10 +94,10 @@ Vox		2	98			#3db540
 }
 
 .gv-winner-counter-header{
-				width: 60px;
+				width: 100%;
 				white-space: nowrap;
 			    overflow: hidden;
-			    text-overflow: ellipsis;
+			    //text-overflow: ellipsis;
 }
 
 .gv-city-circle{

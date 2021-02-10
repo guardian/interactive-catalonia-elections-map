@@ -20,6 +20,16 @@ let path = d3.geoPath()
 
 projection.fitSize([width, height], topojson.feature(map, map.objects.catalonia_municipalities_2062));
 
+const proindepence = [
+{code:'0010',name:'ERC'},
+{code:'0546',name:'FNC'},
+{code:'1083',name:'JxCat'},
+{code:'1097',name:'PDeCAT'},
+{code:'1098',name:'CUP-G'},
+{code:'1101',name:'MPIC'},
+{code:'1102',name:'PNC'}
+]
+
 let capitals = [
 {name:'Barcelona', coordinates:[2.1733676,41.4038413]},
 {name:'Girona', coordinates:[2.8192063,41.978854]},
@@ -65,13 +75,36 @@ provincesMap
 .attr('fill', 'none')
 
 
-let winners = [];
+//let winners = [];
+
+let indies = [];
+
+
 
 fileRaw.map(d => {
 
 		let results = d.results.sort((a,b) => b.votes - a.votes);
 
-		if(results.length > 0)
+		let independentists = results.filter(d => proindepence.find(i => i.code === d.party_code));
+
+		if(independentists.length > 0){
+
+			let sum = d3.sum(independentists, d => d.percentage);
+
+			indies.push({
+				code:d.code,
+				independence_percentage:sum
+			})
+
+			municipalitiesMap.select('.m' + d.code)
+			.classed('independence', true)
+
+
+
+		}
+
+
+		/*if(results.length > 0)
 		{
 			let winner = results[0];
 
@@ -79,9 +112,17 @@ fileRaw.map(d => {
 			.classed('p' + winner.party_code, true)
 
 			winners[d.code] = {party:winner.party_name,votes:winner.votes,percentage:winner.percentage}
-		}
+		}*/
 		
 })
+
+let max = d3.max(indies, d => d.independence_percentage);
+
+indies.map(d => {
+	municipalitiesMap.select('.m' + d.code)
+	.attr('opacity', d.independence_percentage / max)
+})
+
 
 municipalitieStroke
 .selectAll('path')
@@ -100,7 +141,20 @@ const manageOver = (name, value) => {
 	d3.select('.gv-tooltip-header-container')
 	.html(name);
 
-	if(winners[value])
+	let text = '-';
+	let match = indies.find(d => d.code === value);
+	console.log(match)
+
+	if(match) text = match.independence_percentage.toFixed(1) + '%';
+
+	d3.select('.gv-winner-counter-header')
+	.html('Pro-indepence')
+
+	d3.select('.gv-winner-counter-value')
+	.html(text)
+
+
+	/*if(winners[value])
 	{
 		d3.select('.gv-winner-counter-header')
 		.html(winners[value].party)
@@ -116,7 +170,7 @@ const manageOver = (name, value) => {
 
 		d3.select('.gv-winner-counter-value')
 		.html('')
-	}
+	}*/
 
 	
 }
