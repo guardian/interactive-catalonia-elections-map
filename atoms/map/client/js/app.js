@@ -148,7 +148,7 @@ const manageOver = (name, value) => {
 	if(match) text = match.independence_percentage.toFixed(1) + '%';
 
 	d3.select('.gv-winner-counter-header')
-	.html('Pro-indepence')
+	.html('Pro-independence share')
 
 	d3.select('.gv-winner-counter-value')
 	.html(text)
