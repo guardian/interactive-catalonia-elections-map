@@ -1,5 +1,5 @@
 import mainHTML from "./atoms/map/server/templates/main.html!text"
-/*import fs from "fs";
+import fs from "fs";
 import csvParse from "csv-parse/lib/es5/sync";
 import csvStringify from 'csv-stringify/lib/es5/sync'
 
@@ -73,7 +73,7 @@ for (const file of files) {
 	fs.writeFileSync('assets/results.json', JSON.stringify(data));
 
 }
-*/
+
 
 
 export async function render() {

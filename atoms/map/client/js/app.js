@@ -20,7 +20,7 @@ let path = d3.geoPath()
 
 projection.fitSize([width, height], topojson.feature(map, map.objects.catalonia_municipalities_2062));
 
-const proindepence = [
+const proindependednce = [
 {code:'0010',name:'ERC'},
 {code:'0546',name:'FNC'},
 {code:'1083',name:'JxCat'},
@@ -37,7 +37,7 @@ let capitals = [
 {name:'Tarragona', coordinates:[1.2422923,41.118617]}
 ]
 
-let svg = d3.select('.gv-catalonia-map-wrapper').append('svg')
+let svg = d3.select('.gv-map-container').append('svg')
 .attr('width', width)
 .attr('height', height)
 .attr('class', 'gv-geo-map')
@@ -74,6 +74,28 @@ provincesMap
 .attr('stroke-width', '1.5px')
 .attr('fill', 'none')
 
+let colors = ['#FEF7E6', '#FBE4A8', '#F8D16A', '#F5BE2C'];
+
+let colorScale = d3.scaleThreshold()
+.range(colors);
+
+colors.map(d => {
+
+	d3.select('.gv-key-bar')
+	.append('div')
+	.attr('class', 'gv-key-color-box')
+	.style('background', d)
+})
+
+for (var i = 0; i < colors.length + 1; i++) {
+
+	d3.select('.gv-key-footer')
+	.append('div')
+	.attr('id', 'gv-key-text-' + i)
+	.attr('class', 'gv-key-text-box')
+	.html(i)
+}
+
 
 //let winners = [];
 
@@ -85,7 +107,7 @@ fileRaw.map(d => {
 
 		let results = d.results.sort((a,b) => b.votes - a.votes);
 
-		let independentists = results.filter(d => proindepence.find(i => i.code === d.party_code));
+		let independentists = results.filter(d => proindependednce.find(i => i.code === d.party_code));
 
 		if(independentists.length > 0){
 
@@ -96,8 +118,8 @@ fileRaw.map(d => {
 				independence_percentage:sum
 			})
 
-			municipalitiesMap.select('.m' + d.code)
-			.classed('independence', true)
+			/*municipalitiesMap.select('.m' + d.code)
+			.classed('independence', true)*/
 
 
 
@@ -116,11 +138,25 @@ fileRaw.map(d => {
 		
 })
 
-let max = d3.max(indies, d => d.independence_percentage);
+let max = d3.max(indies, d => +d.independence_percentage);
+console.log(max)
+
+colorScale.domain([max/4,max/3,max/2,max])
+
+let divider = 0;
+
+	for (var i = 1; i <= 5; i++) {
+
+		let divider = 5 - i;
+
+		d3.select('#gv-key-text-' + i)
+		.html(Math.round(+max / divider))
+	}
 
 indies.map(d => {
 	municipalitiesMap.select('.m' + d.code)
-	.attr('opacity', d.independence_percentage / max)
+	.attr('fill', colorScale(+d.independence_percentage))
+	//.attr('opacity', d.independence_percentage / max)
 })
 
 
@@ -221,12 +257,15 @@ const manageMove = (event) => {
 
 
     let tWidth = d3.select('.gv-tooltip-container').node().getBoundingClientRect().width;
+    let tHeight = d3.select('.gv-tooltip-container').node().getBoundingClientRect().height;
 
     let posX = left - tWidth /2;
     let posY = top + 20;
 
     if(posX + tWidth > width) posX = width - tWidth;
     if(posX < 0) posX = 0;
+    if(posY + tHeight > height) posY = top - tHeight;
+    if(posY < 0) posY = 0;
 
 
     d3.select('.gv-tooltip-container').style('left',  posX + 'px')

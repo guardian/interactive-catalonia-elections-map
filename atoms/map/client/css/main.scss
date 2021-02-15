@@ -7,7 +7,7 @@
     margin: 0;
     padding: 0;
 
-    max-width: 620px;
+    max-width: 400px;
 }
 
 .gv-map-header{
@@ -50,9 +50,6 @@ PP	People's party	3	85			#00B2FF
 Cs	Citizens	10	88			#e05e00	
 Vox		2	98			#3db540	
 							 */
-
-
-.independence{fill:#F5BE2C;}
 
 
 
@@ -109,5 +106,50 @@ Vox		2	98			#3db540
 
 	@include fs-textSans(2);
 	pointer-events: none;
-	
+}
+
+.gv-key-container{
+	max-width:500px;
+	height: max-content;
+	margin-bottom: 20px;
+}
+
+.gv-key-bar, .gv-key-footer{
+	display: flex;
+	flex-wrap: wrap;
+}
+.gv-key-color-box, .gv-key-text-box{
+	height:8px;
+	width:calc(300px / 6);
+
+	@include mq($from: 100px, $until: 499px) {
+		height:6px;
+        width:calc(250px / 6);
+    }
+}
+.gv-key-color-box{
+	margin-right: 1px;
+}
+
+.gv-key-text-box:last-child{
+	display:none;
+}
+
+.gv-key-header{
+	@include fs-header(1);
+	font-size:16px;
+	margin-bottom: 6px;
+	margin-top: 6px;
+	color:#333;
+}
+.gv-key-text-box{
+	@include fs-textSans(2);
+	color: #B3B3B4;
+}
+
+.gv-map-footer{
+	width: 100%;
+	@include fs-textSans(1);
+	color:#dadada;
+	border-top:1px solid #dadada;
 }
